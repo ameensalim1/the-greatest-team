@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+import seaborn as sns
 
 def genresImportantAttributes(data, important_features):
     data = data.assign(genre=data['genre'].str.split(', ')).explode('genre').reset_index(drop=True)
@@ -74,3 +75,50 @@ def plotFeatureDistributions(data, features):
     plt.tight_layout()
     plt.subplots_adjust(top=0.95)  # Adjust layout to fit title
     plt.show()
+
+def plotCorrelationHeatmap(data, features):
+    # Load data
+    data = data.assign(genre=data['genre'].str.split(', ')).explode('genre').reset_index(drop=True)
+    
+    genre_feature_value = data.groupby('genre')[features].mean()
+    
+    corr = genre_feature_value.corr()
+
+    plt.style.use('dark_background')
+
+    plt.figure(figsize=(10,8))
+    sns.heatmap(corr, annot=True, cmap='coolwarm', fmt=".2f", linewidths=0.5)
+    plt.title('Correlation Heatmap of Important Features for Genres')
+    plt.show()
+
+def plotUnivariateAnalysis(data, features):
+    # Split multi-genre entries and reset the index
+    data = data.assign(genre=data['genre'].str.split(', ')).explode('genre').reset_index(drop=True)
+    
+    # Loop through each genre and create plots
+    for genre in data['genre'].unique():
+        genre_data = data[data['genre'] == genre]
+        
+        # Set up figure style and layout for histogram
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+        plt.style.use('ggplot')
+        fig.suptitle(f'Univariate Analysis for {genre}', fontsize=16)
+        
+        # Plot histogram with KDE for each feature in the selected genre
+        for feature in features:
+            sns.histplot(genre_data[feature], kde=True, ax=ax1, label=feature, bins=30, alpha=0.6)
+        ax1.set_title(f'Histogram with KDE')
+        ax1.set_xlabel('Value')
+        ax1.set_ylabel('Frequency')
+        ax1.legend(title='Features')
+        
+        # Plot boxplot for each feature in the selected genre
+        sns.boxplot(data=genre_data[features], ax=ax2)
+        ax2.set_title(f'Box Plot')
+        ax2.set_xlabel('Features')
+        
+        plt.tight_layout()
+        plt.subplots_adjust(top=0.85)  # Adjust layout to fit title
+        plt.show()
+
+
