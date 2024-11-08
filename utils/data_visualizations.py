@@ -121,4 +121,18 @@ def plotUnivariateAnalysis(data, features):
         plt.subplots_adjust(top=0.85)  # Adjust layout to fit title
         plt.show()
 
+def plotClassesCount(data, className):
+
+    genre_counts = data[className].value_counts()
+    plt.style.use("dark_background")
+    plt.figure(figsize=(10, 6))
+
+    genre_counts.plot(kind='bar')
+    plt.title("Genre Distribution")
+    plt.xlabel(className)
+    plt.ylabel("Count")
+    plt.show()
+
+    # Print counts for reference
+    print(genre_counts)
 
