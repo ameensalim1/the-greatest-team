@@ -16,13 +16,9 @@ The **Music Genre Classification System** is a web-based application that allows
 The folder contains the following files and directories:
 
 project-folder/
-
 ├── index.html         # Main HTML file for the project’s front end
-
 ├── style.css          # CSS file for styling the web application
-
 ├── app.js             # JavaScript file for handling interactivity and logic
-
 ├── assets/            # Directory containing images and icons
 │   ├── css
 │   │   └── style.css
