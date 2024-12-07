@@ -16,7 +16,7 @@ def queryChatGPT3(sysMessage, humanMessage):
     load_dotenv()
 
     # Initialize the ChatGPT model
-    model = ChatOpenAI(model="gpt-3.5-turbo")
+    model = ChatOpenAI(model="ft:gpt-3.5-turbo-1106:personal:song-sql-query:AbdBmbWp")
 
     # Prepare messages for the LLM
     messages = [
@@ -40,8 +40,9 @@ def parse_preferences_to_sql(query):
         "'I want upbeat acoustic songs for working out'. "
         "An example SQL query output for this input might be: "
         "\"SELECT * FROM songs WHERE genre = 'acoustic' AND energy > 0.658 AND tempo > 0.589900517214482 AND valence > 0.6 AND liveliness < 0.226 ORDER BY popularity DESC LIMIT 10;\" "
-        "KNOW: Valid genres include [('acoustic',), ('afrobeat',), ('alt-rock',), ('ambient',), ('black-metal',), ('blues',), ('breakbeat',), ('cantopop',), ('chicago-house',), ('chill',), ('classical',), ('club',), ('comedy',), ('country',), ('dance',), ('dancehall',), ('death-metal',), ('deep-house',), ('detroit-techno',), ('disco',), ('drum-and-bass',), ('dub',), ('dubstep',), ('edm',), ('electro',), ('electronic',), ('emo',), ('folk',), ('forro',), ('french',), ('funk',), ('garage',), ('german',), ('gospel',), ('goth',), ('grindcore',), ('groove',), ('guitar',), ('hard-rock',), ('hardcore',), ('hardstyle',), ('heavy-metal',), ('hip-hop',), ('house',), ('indian',), ('indie-pop',), ('industrial',), ('jazz',), ('k-pop',), ('metal',), ('metalcore',), ('minimal-techno',), ('new-age',), ('opera',), ('party',), ('piano',), ('pop',), ('pop-film',), ('power-pop',), ('progressive-house',), ('psych-rock',), ('punk',), ('punk-rock',), ('rock',), ('rock-n-roll',), ('romance',), ('sad',), ('salsa',), ('samba',), ('sertanejo',), ('show-tunes',), ('singer-songwriter',), ('ska',), ('sleep',), ('songwriter',), ('soul',), ('spanish',), ('swedish',), ('tango',), ('techno',), ('trance',), ('trip-hop',)] Do not search for genres that are not in the list. "
+        "KNOW: When a user asks for rock include rock-n-roll as well. Valid genres include [('acoustic',), ('afrobeat',), ('alt-rock',), ('ambient',), ('black-metal',), ('blues',), ('breakbeat',), ('cantopop',), ('chicago-house',), ('chill',), ('classical',), ('club',), ('comedy',), ('country',), ('dance',), ('dancehall',), ('death-metal',), ('deep-house',), ('detroit-techno',), ('disco',), ('drum-and-bass',), ('dub',), ('dubstep',), ('edm',), ('electro',), ('electronic',), ('emo',), ('folk',), ('forro',), ('french',), ('funk',), ('garage',), ('german',), ('gospel',), ('goth',), ('grindcore',), ('groove',), ('guitar',), ('hard-rock',), ('hardcore',), ('hardstyle',), ('heavy-metal',), ('hip-hop',), ('house',), ('indian',), ('indie-pop',), ('industrial',), ('jazz',), ('k-pop',), ('metal',), ('metalcore',), ('minimal-techno',), ('new-age',), ('opera',), ('party',), ('piano',), ('pop',), ('pop-film',), ('power-pop',), ('progressive-house',), ('psych-rock',), ('punk',), ('punk-rock',), ('rock',), ('rock-n-roll',), ('romance',), ('sad',), ('salsa',), ('samba',), ('sertanejo',), ('show-tunes',), ('singer-songwriter',), ('ska',), ('sleep',), ('songwriter',), ('soul',), ('spanish',), ('swedish',), ('tango',), ('techno',), ('trance',), ('trip-hop',)] Do not search for genres that are not in the list. "
         "IMPORTANT: Valid SQL columns include ONLY: id INTEGER PRIMARY KEY, artist_name TEXT NOT NULL, track_name TEXT NOT NULL, track_id TEXT NOT NULL UNIQUE, popularity INTEGER, year INTEGER, genre TEXT, danceability REAL, energy REAL, key INTEGER, loudness REAL, mode INTEGER, acousticness REAL, instrumentalness REAL, liveness REAL, valence REAL, tempo REAL"
+        "Make sure to always exclude the sleep genre unless the user specifically asks for it"
         "Given the user query, generate a complete SQL query, be as specific as you find necessary for the query. The result should always include a LIMIT 10 clause unless otherwise specified by the user."
 
     )

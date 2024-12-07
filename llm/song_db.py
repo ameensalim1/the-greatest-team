@@ -35,17 +35,36 @@ CREATE TABLE IF NOT EXISTS songs (
 )
 ''')
 
-rock_songs = cursor.execute(
-'''SELECT DISTINCT genre
-FROM songs;'''
-)
-print(rock_songs.fetchall())
 # Insert data into the database
 df.to_sql('songs', conn, if_exists='replace', index=False)
-print("Database created and data imported successfully!")
 
-print("Top 10 songs by popularity:")
-# Commit and close
+# Delete unwanted records
+cursor.execute('''
+DELETE FROM songs
+WHERE LOWER(track_name) LIKE '%white noise%'
+   OR LOWER(track_name) LIKE '%hz%'
+   OR LOWER(track_id) LIKE '%white noise%';
+''')
+
+# Verify deletion
+print("Checking for remaining 'White Noise' tracks:")
+cursor.execute('''
+SELECT track_name, track_id
+FROM songs
+WHERE LOWER(track_name) LIKE '%white noise%'
+   OR LOWER(track_id) LIKE '%white noise%';
+''')
+results = cursor.fetchall()
+for row in results:
+    print(row)
+
+# Show distinct genres
+print("\nDistinct genres:")
+cursor.execute('SELECT DISTINCT genre FROM songs')
+genres = cursor.fetchall()
+for genre in genres:
+    print(genre[0])
+
+# Commit changes and close connection
 conn.commit()
 conn.close()
-
