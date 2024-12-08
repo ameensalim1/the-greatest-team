@@ -17,7 +17,7 @@ load_dotenv(env_path)
 def queryChatGPT3(sysMessage, humanMessage):
     try:
         # Initialize the ChatGPT model
-        model = ChatOpenAI(model="gpt-4o-mini")
+        model = ChatOpenAI(model="ft:gpt-3.5-turbo-1106:personal:song-sql-query:AbdBmbWp")
 
         # Prepare messages for the LLM
         messages = [
