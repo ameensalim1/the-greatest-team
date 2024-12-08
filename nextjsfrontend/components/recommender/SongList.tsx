@@ -11,7 +11,7 @@ interface SongListProps {
 }
 
 export function SongList({ songs }: SongListProps) {
-  if (!songs.length) return null;
+  if (!songs) return null;
 
   return (
     <Card className="w-full max-w-2xl p-6">
