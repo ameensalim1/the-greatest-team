@@ -21,9 +21,11 @@ export default function Home() {
   const handleSubmit = async (query: string) => {
     setIsLoading(true);
     try {
-      const response = await axios.post("http://localhost:8080/recommend-by-genre", {
-        query,
-      });
+      // Use the backend URL from environment variables
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/recommend-by-genre`,
+        { query }
+      );
       setSongs(response.data.recommendations);
     } catch (error) {
       toast({
