@@ -3,4 +3,6 @@ venv/
 data/
 llm/songs.db
 llm/__pycache__/
-utils/__pycache__/
+utils/__pycache__/backend/songs.db
+**/__pycache__
+**/*.pyc
