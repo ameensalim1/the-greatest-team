@@ -6,7 +6,7 @@ import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS  # Import CORS for cross-origin resource sharing
 import logging
-
+import requests
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -21,6 +21,27 @@ app = Flask(__name__)
 
 # Enable CORS for all routes and allow requests from http://localhost:3000
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+
+
+def download_db():
+    """Downloads the songs.db file from GCS if it does not exist."""
+    db_path = Path('/tmp/songs.db')  # Use /tmp to store the database on Render
+    if not db_path.exists():
+        print("Downloading songs.db from GCS...")
+        url = "https://storage.googleapis.com/my-sqlite-database-bucket/songs.db"
+        
+        response = requests.get(url, stream=True)
+        if response.status_code == 200:
+            with open(db_path, 'wb') as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    f.write(chunk)
+            print("Downloaded songs.db successfully.")
+        else:
+            print(f"Failed to download songs.db. Status code: {response.status_code}")
+    else:
+        print("songs.db already exists, no download required.")
+
+
 
 @app.route('/recommend-by-genre', methods=['POST'])
 def recommend_by_genre():
@@ -70,4 +91,5 @@ if __name__ == '__main__':
         sys.exit(1)
 
     # Run the Flask app
+    download_db()
     app.run(host='0.0.0.0', port=8080, debug=True)

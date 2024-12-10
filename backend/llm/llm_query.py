@@ -7,7 +7,10 @@ import os
 from pathlib import Path
 
 # Load the dataset and connect to the SQLite database
-DB_PATH = Path(__file__).parent.parent / "songs.db"
+# DB_PATH = Path(__file__).parent.parent / "songs.db"
+
+# Use the /tmp directory to store the database in Render
+DB_PATH = Path('/tmp/songs.db')
 # Change env_path definition
 env_path = Path(__file__).parent.parent / '.env'
 load_dotenv(env_path)
@@ -37,6 +40,7 @@ def parse_preferences_to_sql(query):
     system_message = (
         "You are a helpful assistant that converts user song preferences into an SQL query. No other responses are needed. "
         "The query should be based on numerical feature mappings from user preferences. "
+        "Return ONLY the raw SQL query with no formatting, quotes, or markdown."
         "The features include 'danceability', 'energy', 'acousticness', 'valence', 'tempo', 'year', "
         "'genre', 'loudness', 'liveness', and others relevant for music. "
         "Each feature is scaled between 0 and 1, except 'year' which is a 4-digit number, "
