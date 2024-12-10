@@ -7,17 +7,17 @@ import os
 from pathlib import Path
 
 # Load the dataset and connect to the SQLite database
-DB_PATH = Path(__file__).parent / "songs.db"
-
-# Load API key once
-env_path = Path(__file__).parent / '.env'
+DB_PATH = Path(__file__).parent.parent / "songs.db"
+# Change env_path definition
+env_path = Path(__file__).parent.parent / '.env'
 load_dotenv(env_path)
 
 # Function to query ChatGPT using LangChain
 def queryChatGPT3(sysMessage, humanMessage):
     try:
         # Initialize the ChatGPT model
-        model = ChatOpenAI(model="ft:gpt-3.5-turbo-1106:personal:song-sql-query:AbdBmbWp")
+        # model = ChatOpenAI(model="ft:gpt-3.5-turbo-1106:personal:song-sql-query:AbdBmbWp")
+        model = ChatOpenAI(model="gpt-4o-mini")
 
         # Prepare messages for the LLM
         messages = [

@@ -1,9 +1,16 @@
 import sqlite3
 import pandas as pd
-
+from pathlib import Path
 # Load the CSV into a DataFrame
-csv_file = '../data/spotify_data_normalized.csv'  # Replace with your file path
+
+
+csv_file = Path(__file__).parent.parent.parent / 'data' / 'spotify_data_normalized.csv'
+
 df = pd.read_csv(csv_file)
+
+
+# Change the connection line to:
+conn = sqlite3.connect(Path(__file__).parent.parent / 'songs.db')
 
 # Connect to SQLite database (or create it if it doesn't exist)
 conn = sqlite3.connect('songs.db')

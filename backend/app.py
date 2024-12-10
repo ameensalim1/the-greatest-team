@@ -60,7 +60,7 @@ def home():
 
 if __name__ == '__main__':
     # Ensure the .env is loaded
-    env_path = Path(__file__).parent.parent / 'llm' / '.env'
+    env_path = Path(__file__).parent / '.env'    
     if os.path.exists(env_path):
         from dotenv import load_dotenv
         load_dotenv(env_path)
