@@ -5,6 +5,9 @@ ECS 170 Final Project
 Dataset: [Spotify Tracks Dataset](https://www.kaggle.com/datasets/maharshipandya/-spotify-tracks-dataset?resource=download)
 # 🎶 Song Recommendation System - ECS 170 🎶
 
+
+##### Ameen Salim, G Krupaa No Name, Sarbani Kumar, Devon Streelman, Ansh Chhabra, Jesus Delgado - Perez, Loc Nguyen, Lorenzo Fernandes
+--- 
 Enter a mood or vibe you want to hear and get a personalized playlist from our song recommendation algorithm!
 
 <div align="center">
